@@ -1,14 +1,12 @@
-import { useState } from 'react' // Importa el hook useState de React
+import { useState } from 'react'
 
 // Componente para mostrar una única estadística
-const StatisticLine = ({ text, value }) => {
-  return (
-    <tr>
-      <td>{text}</td> {/* Muestra el texto de la estadística */}
-      <td>{value}</td> {/* Muestra el valor de la estadística */}
-    </tr>
-  )
-}
+const StatisticLine = ({ text, value }) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
+)
 
 // Componente para mostrar las estadísticas
 const Statistics = ({ good, neutral, bad }) => {
@@ -16,7 +14,7 @@ const Statistics = ({ good, neutral, bad }) => {
 
   // Si no hay feedback, muestra un mensaje
   if (all === 0) {
-    return <p>No feedback given</p> // Muestra un mensaje si no hay feedback
+    return <p>No feedback given</p>
   }
 
   // Calcula el promedio de feedback
@@ -26,15 +24,16 @@ const Statistics = ({ good, neutral, bad }) => {
 
   return (
     <div>
-      <h1>statistics</h1> {/* Título de la sección de estadísticas */}
+      <h1>statistics</h1>
       <table>
         <tbody>
-          <StatisticLine text="good" value={good} /> {/* Muestra la cantidad de feedback "good" */}
-          <StatisticLine text="neutral" value={neutral} /> {/* Muestra la cantidad de feedback "neutral" */}
-          <StatisticLine text="bad" value={bad} /> {/* Muestra la cantidad de feedback "bad" */}
-          <StatisticLine text="all" value={all} /> {/* Muestra el total de feedback */}
-          <StatisticLine text="average" value={average} /> {/* Muestra el promedio de feedback */}
-          <StatisticLine text="positive" value={`${positive} %`} /> {/* Muestra el porcentaje de feedback positivo */}
+          {/* Muestra cada estadística usando el componente StatisticLine */}
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="average" value={average} />
+          <StatisticLine text="positive" value={`${positive} %`} />
         </tbody>
       </table>
     </div>
@@ -42,30 +41,28 @@ const Statistics = ({ good, neutral, bad }) => {
 }
 
 // Componente para los botones
-const Button = ({ onClick, text }) => {
-  return (
-    <button onClick={onClick}>{text}</button> // Botón que ejecuta una función al hacer clic
-  )
-}
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>{text}</button>
+)
 
 // Componente principal de la aplicación
 const App = () => {
-  // Estados para guardar la cantidad de feedback
-  const [good, setGood] = useState(0) // Estado para feedback "good"
-  const [neutral, setNeutral] = useState(0) // Estado para feedback "neutral"
-  const [bad, setBad] = useState(0) // Estado para feedback "bad"
+  // Definición de los estados para cada tipo de feedback
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
   return (
     <div>
-      <h1>give feedback</h1> {/* Título de la sección de feedback */}
-      {/* Botones para dar feedback */}
-      <Button onClick={() => setGood(good + 1)} text="good" /> {/* Incrementa el feedback "good" */}
-      <Button onClick={() => setNeutral(neutral + 1)} text="neutral" /> {/* Incrementa el feedback "neutral" */}
-      <Button onClick={() => setBad(bad + 1)} text="bad" /> {/* Incrementa el feedback "bad" */}
-      {/* Muestra las estadísticas */}
+      <h1>give feedback</h1>
+      {/* Botones para incrementar el feedback */}
+      <Button onClick={() => setGood(good + 1)} text="good" />
+      <Button onClick={() => setNeutral(neutral + 1)} text="neutral" />
+      <Button onClick={() => setBad(bad + 1)} text="bad" />
+      {/* Componente para mostrar las estadísticas */}
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
 
-export default App // Exporta el componente App como el componente principal
+export default App
